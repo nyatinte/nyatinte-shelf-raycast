@@ -31,5 +31,9 @@
     "fix-lint": "ray lint --fix",
     "lint": "ray lint",
     "publish": "npx @raycast/api@latest publish"
+  },
+  "volta": {
+    "node": "20.11.1",
+    "npm": "10.5.0"
   }
 }
