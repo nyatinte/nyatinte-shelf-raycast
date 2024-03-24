@@ -4,5 +4,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "todo-tree.general.tags": ["BUG", "FIXME", "TODO"]
+  "todo-tree.general.tags": ["BUG", "FIXME", "TODO"],
+  "cSpell.words": ["nyatinte", "raycast"]
 }
