@@ -1,6 +1,7 @@
 import { showHUD, LocalStorage } from "@raycast/api";
 import { apiKeyLocalStorageKey } from "./apiKey";
 import { z } from "zod";
+import fetch from "node-fetch";
 
 const urlSchema = z
   .string()
@@ -24,17 +25,22 @@ export default async function main(props: {
     await showHUD("🚨Invalid URL");
     return;
   }
+  const url = urlParseResult.data;
 
-  /** TODO: Implement the API call */
-  // await fetch("my-api-endpoint", {
-  //   body: JSON.stringify({
-  //     url: url.toString(),
-  //   }),
-  //   method: "POST",
-  //   headers: {
-  //     "x-api-key": apiKey.toString(),
-  //   },
-  // });
+  const res = await fetch("http://localhost:5173/api/articles", {
+    body: JSON.stringify({
+      url: url.toString(),
+    }),
+    method: "POST",
+    headers: {
+      "x-api-key": apiKey.toString(),
+    },
+  });
+
+  if (!res.ok) {
+    await showHUD("🚨Failed to add document to your shelf. Check server");
+    return;
+  }
 
   await showHUD("🎉Successfully add document to your shelf");
 }
