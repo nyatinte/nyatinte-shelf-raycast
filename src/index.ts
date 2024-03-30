@@ -33,8 +33,17 @@ export default async function main(props: {
   });
 
   if (!res.ok) {
-    await showHUD("🚨Failed to add document to your shelf. Check server");
-    return;
+    switch (res.status) {
+      case 401:
+        await showHUD("🚨Invalid API Key");
+        return;
+      case 409:
+        await showHUD("🚨Document already exists in your shelf");
+        return;
+      default:
+        await showHUD("🚨Failed to add document to your shelf. Check server");
+        return;
+    }
   }
 
   await showHUD("🎉Successfully add document to your shelf");
