@@ -2,7 +2,7 @@ import { showHUD } from "@raycast/api";
 
 import { z } from "zod";
 import fetch from "node-fetch";
-import { API_KEY, LOCAL_SERVER_URL } from "./env";
+import { API_KEY, PROD_SERVER_URL } from "./env";
 
 const urlSchema = z
   .string()
@@ -21,7 +21,7 @@ export default async function main(props: {
   }
   const url = urlParseResult.data;
 
-  const res = await fetch(new URL("/api/articles", LOCAL_SERVER_URL), {
+  const res = await fetch(new URL("/api/articles", PROD_SERVER_URL), {
     body: JSON.stringify({
       url: url.toString(),
     }),
