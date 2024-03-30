@@ -1,8 +1,8 @@
-import { showHUD, LocalStorage } from "@raycast/api";
-import { apiKeyLocalStorageKey } from "./apiKey";
+import { showHUD } from "@raycast/api";
+
 import { z } from "zod";
 import fetch from "node-fetch";
-import { LOCAL_SERVER_URL } from "./env";
+import { API_KEY, LOCAL_SERVER_URL } from "./env";
 
 const urlSchema = z
   .string()
@@ -14,13 +14,6 @@ export default async function main(props: {
     url: string;
   };
 }) {
-  const apiKey = await LocalStorage.getItem(apiKeyLocalStorageKey);
-
-  if (!apiKey) {
-    await showHUD("⚙️API key not set. Run the 'Set API Key' command first.");
-    return;
-  }
-
   const urlParseResult = urlSchema.safeParse(props.arguments.url);
   if (!urlParseResult.success) {
     await showHUD("🚨Invalid URL");
@@ -34,7 +27,7 @@ export default async function main(props: {
     }),
     method: "POST",
     headers: {
-      "x-api-key": apiKey.toString(),
+      "x-api-key": API_KEY,
       "Content-Type": "application/json",
     },
   });

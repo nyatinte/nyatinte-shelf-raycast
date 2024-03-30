@@ -20,20 +20,6 @@
           "placeholder": "URL"
         }
       ]
-    },
-    {
-      "name": "set-api-key",
-      "title": "Set API Key",
-      "description": "Set API Key for nyatinte-shelf.",
-      "mode": "no-view",
-      "arguments": [
-        {
-          "name": "apiKey",
-          "type": "password",
-          "required": true,
-          "placeholder": "API Key"
-        }
-      ]
     }
   ],
   "dependencies": {
