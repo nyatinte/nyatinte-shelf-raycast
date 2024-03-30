@@ -2,6 +2,7 @@ import { showHUD, LocalStorage } from "@raycast/api";
 import { apiKeyLocalStorageKey } from "./apiKey";
 import { z } from "zod";
 import fetch from "node-fetch";
+import { LOCAL_SERVER_URL } from "./env";
 
 const urlSchema = z
   .string()
@@ -27,13 +28,14 @@ export default async function main(props: {
   }
   const url = urlParseResult.data;
 
-  const res = await fetch("http://localhost:5173/api/articles", {
+  const res = await fetch(new URL("/api/articles", LOCAL_SERVER_URL), {
     body: JSON.stringify({
       url: url.toString(),
     }),
     method: "POST",
     headers: {
       "x-api-key": apiKey.toString(),
+      "Content-Type": "application/json",
     },
   });
 
